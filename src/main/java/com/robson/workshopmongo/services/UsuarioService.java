@@ -26,4 +26,8 @@ public class UsuarioService {
         return user.orElseThrow(() -> new ObjectNotFoundException(id + " Not Found"));
     }
 
+    public Usuario insert(Usuario usuario){
+        return repository.insert(usuario);
+    }
+
 }
