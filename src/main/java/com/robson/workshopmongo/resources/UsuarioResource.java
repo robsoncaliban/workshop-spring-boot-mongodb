@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +22,19 @@ import lombok.AllArgsConstructor;
 public class UsuarioResource {
 
     private UsuarioService service;
-    // <- outra forma
-    // @GetMapping
-    @RequestMapping(method = RequestMethod.GET) 
+    //@RequestMapping(method = RequestMethod.GET)  <- outra forma
+    @GetMapping
     public ResponseEntity<List<UsuarioDTO>> findAll(){
         List<Usuario> list = service.findAll();
-        List<UsuarioDTO> listdDto = list.stream().map(x -> new UsuarioDTO(x)).collect(Collectors.toList());
+        List<UsuarioDTO> listdDto = list.stream().map(usuario -> new UsuarioDTO(usuario)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listdDto);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable String id){
+        Usuario usuario = service.findById(id);
+        var usuarioDTO = new UsuarioDTO(usuario);
+        return ResponseEntity.ok().body(usuarioDTO);
+    }
+
 }
