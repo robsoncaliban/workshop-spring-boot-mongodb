@@ -22,8 +22,7 @@ public class Usuario implements Serializable{
     private String nome;
     private String email;
 
-    public Usuario(String id, String nome, String email) {
-        this.id = id;
+    public Usuario(String nome, String email) {
         this.nome = nome;
         this.email = email;
     }
