@@ -30,4 +30,21 @@ public class UsuarioService {
         return repository.insert(usuario);
     }
 
+    public void delete(String id){
+        var usuario = findById(id);
+        repository.delete(usuario);
+    }
+
+    public Usuario update(Usuario usuario){
+        var usuarioNovo = findById(usuario.getId());
+        updateData(usuarioNovo, usuario);
+        return repository.save(usuarioNovo);
+    }
+
+    private void updateData(Usuario usuarioNovo, Usuario usuario) {
+        usuarioNovo.setNome(usuario.getNome());
+        usuarioNovo.setEmail(usuario.getEmail());
+    }
+
+
 }
