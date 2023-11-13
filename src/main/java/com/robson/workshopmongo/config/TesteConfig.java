@@ -44,6 +44,7 @@ public class TesteConfig implements CommandLineRunner{
         
         postRepository.saveAll(Arrays.asList(post01,post02));
         maria.getPosts().addAll(Arrays.asList(post01,post02));
+        usuarioRepository.save(maria);
 
     }
     
