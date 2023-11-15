@@ -22,6 +22,10 @@ public class PostService {
         return post.orElseThrow(() -> new ObjectNotFoundException(id + " Not Found"));
     }
 
+    public List<Post> findByTitulo(String titulo){
+        return repository.findByTituloContainingIgnoreCase(titulo);
+    }
+
     public void delete(String id){
         var post = findById(id);
         repository.delete(post);
