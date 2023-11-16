@@ -1,6 +1,7 @@
 package com.robson.workshopmongo.resources;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,18 @@ public class PostResource {
     public ResponseEntity<List<Post>> findByTitulo(@RequestParam(value = "text", defaultValue = "") String texto){
         texto = URL.decodePram(texto);
         List<Post> posts = service.findByTitulo(texto);
+        return ResponseEntity.ok().body(posts);
+    }
+
+    @GetMapping(value = "/pesquisacompleta")
+    public ResponseEntity<List<Post>> fullSearch(
+        @RequestParam(value = "text", defaultValue = "") String texto,
+        @RequestParam(value = "minData", defaultValue = "") String minData,
+        @RequestParam(value = "maxData", defaultValue = "") String maxData){
+        texto = URL.decodePram(texto);
+        Date min = URL.convertDate(minData, new Date(0L));
+        Date max = URL.convertDate(maxData, new Date());
+        List<Post> posts = service.fullSearch(texto, min, max);
         return ResponseEntity.ok().body(posts);
     }
 

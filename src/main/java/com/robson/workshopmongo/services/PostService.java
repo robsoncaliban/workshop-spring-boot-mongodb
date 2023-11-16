@@ -1,5 +1,6 @@
 package com.robson.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,11 @@ import lombok.AllArgsConstructor;
 public class PostService {
     
     PostRepository repository;
+
+    public List<Post> fullSearch(String text, Date minData, Date maxData){
+        maxData = new Date(maxData.getTime() +20*60*60*1000);
+        return repository.fullSearch(text, minData, maxData);
+    }
 
     public Post findById(String id){
         Optional<Post> post = repository.findById(id);
